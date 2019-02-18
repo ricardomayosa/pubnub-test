@@ -19,7 +19,7 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.4",
+    "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-plugin-eslint": "^3.0.4",
     "@vue/cli-service": "^3.0.4",
     "vue-template-compiler": "^2.5.17"
@@ -34,8 +34,17 @@
       "eslint:recommended"
     ],
     "rules": {
-      "no-console": ["error", { "allow": ["warn", "error", "log"] }]
-      },
+      "no-console": [
+        "error",
+        {
+          "allow": [
+            "warn",
+            "error",
+            "log"
+          ]
+        }
+      ]
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

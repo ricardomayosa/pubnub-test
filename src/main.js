@@ -17,8 +17,8 @@ Vue.config.productionTip = false;
 Vue.use(Chat, {});
 
 // Initialize ChatEngine with PubNub - Remember to activate ChatEngine first!
-const publishKey = '_YOUR_PUBLISH_KEY_HERE_';
-const subscribeKey = '_YOUR_SUBSCRIBE_KEY_HERE_';
+const publishKey = 'pub-c-830f2ac5-4a40-4cf0-b8c0-8dd4239d8c01';
+const subscribeKey = 'sub-c-038f3918-33d0-11e9-ae9a-6e31a7d5aca7';
 
 window.$supportAPI = '_YOUR_FUNCTIONS_ENDPOINT_URL_HERE_';
 
