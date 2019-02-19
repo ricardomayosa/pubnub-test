@@ -6,7 +6,13 @@
     <img :src="avatarSrc" />
     <div class="text">
       <span class="name">{{ name }}</span>
-      <span class="lastMessage">{{ lastMessage }}</span>
+      
+      <div v-if="showTypingIndicator">
+        <span>ta escribiendo</span>
+      </div>
+      <div v-else>
+        <span class="lastMessage">{{ lastMessage }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -25,7 +31,25 @@ export default {
     index: null,
   },
   data() {
-    return {};
+    return {
+      showTypingIndicator: false,
+    };
+  },
+  created() {
+    // Add a typing indicator visual to the UI
+    EventBus.$on('typing-start', (key) => {
+      if (this.$store.state.currentChat === key) {
+        this.showTypingIndicator = true;
+        // this.$nextTick(scrollBottom);
+      }
+    });
+
+    // Remove the typing indicator visual from the UI
+    EventBus.$on('typing-stop', (key) => {
+      if (this.$store.state.currentChat === key) {
+        this.showTypingIndicator = false;
+      }
+    });
   },
   methods: {
     onFocus(event) {
@@ -40,11 +64,17 @@ export default {
     lastMessage() {
       let messages = this.$store.state.chatMessages[this.key];
 
-      if (messages && messages.length) {
-        return messages[messages.length-1].data.text;
+      if(this.showTypingIndicator) {
+        return 'Ta escribiendo'
       } else {
-        return '';
+        if (messages && messages.length) {
+          return messages[messages.length-1].data.text;
+        } else {
+          return '';
+        }
       }
+
+      
     },
     avatarSrc() {
       if (this.avatar === 'global') {
@@ -108,4 +138,6 @@ span.lastMessage {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+
 </style>

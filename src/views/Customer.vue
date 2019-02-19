@@ -38,6 +38,7 @@ EventBus.$on('vue-initialized-customer', ({ chatEngine, store }) => {
 
   let myUuid = window.localStorage.getItem('chat_engine_customer_uuid');
   let myName = window.localStorage.getItem('chat_engine_customer_name');
+  let myLocation = window.localStorage.getItem('chat_engine_customer_location');
 
   // Store customer identifiers in the browser local storage
   if ((!myUuid || !myName) && view === 'customer') {
@@ -45,6 +46,17 @@ EventBus.$on('vue-initialized-customer', ({ chatEngine, store }) => {
     myName = util.generateName();
     localStorage.setItem('chat_engine_customer_uuid', myUuid);
     localStorage.setItem('chat_engine_customer_name', myName);
+  }
+
+  if(!myLocation) {
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(displayLocationInfo)
+    }
+  }
+
+  function displayLocationInfo(position) {
+    // Save location on state
+    console.log(position);
   }
 
   const meState = {
